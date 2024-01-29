@@ -34,17 +34,7 @@ int solve(){
         vector <int> v;
 
         for (int i : se){
-            int interger_part = k / i;
-            
-            //if i is not mutiples of any number before
-            if (mark[i] == false){
-                for (int j = 0; j < interger_part; j++){
-                v.push_back(i);
-                }
-                for (int j = i; j < 2005; j += i){
-                    mark[j] = true;
-                }
-            }
+            v.push_back(i);
         }
         
         //dp[i][j] is the maximum sum with limited sum j
@@ -54,10 +44,10 @@ int solve(){
         for (int i = 1; i <= v.size(); i++){
             for (int j = 1; j <= k; j++){
                 dp[i][j] = dp[i - 1][j];
-
+                
                 //if can add up current value
                 if (j >= v[i - 1]){
-                    dp[i][j] = max(dp[i][j], dp[i - 1][j - v[i - 1]] + v[i - 1]);
+                    dp[i][j] = max(dp[i][j], dp[i][j - v[i - 1]] + v[i - 1]);
                 }
             }
         }
